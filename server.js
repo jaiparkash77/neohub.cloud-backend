@@ -1,14 +1,11 @@
 const express = require("express");
+const router = require("./router/auth-router");
 
 const app = express();
 
-app.get("/", (req, res)=>{
-    res.status(200).send("Welcome to neohub");
-});
+// Mount the Router: To use the router in your main Express app, you can "mount" it at a specific URL prefix  
+app.use("/api/auth", router);
 
-app.get("/register", (req, res)=>{
-    res.status(200).send("Register to neohub");
-});
 
 const PORT = 5000;
 
