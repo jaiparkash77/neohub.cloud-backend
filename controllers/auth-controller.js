@@ -29,7 +29,7 @@ const register = async (req, res) =>{
         // const saltRound = 10;
         // const hash_password = await bcrypt.hash(password, saltRound);
         const user = await User.create({username, email, password, phone});
-        res.status(201).json({message:'Registration successful', user});
+        res.status(201).json({message:'Registration successful', token: await user.generateToken(), userId: user._id.toString() });
     } catch (error) {
         res.status(400).send({msg: "Registration failed"});
     }
