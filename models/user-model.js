@@ -61,6 +61,15 @@ userSchema.methods.generateToken = async function(){
     }
 }
 
+// Compare Password
+userSchema.methods.comparePassword = async function(password){
+    try {
+        return bcrypt.compare(password, this.password);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 // Define the model or the collection name (model name should start with Capital letter which will saved automatically in lowercase with plural form "users")
 const User = new mongoose.model("User", userSchema);
 
