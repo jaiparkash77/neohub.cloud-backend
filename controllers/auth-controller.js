@@ -21,7 +21,7 @@ const home = async (req, res) =>{
 // 5. Save to DB: Save user data to database.
 // 6. Respond: Respond with "Registration Successful" or handle errors.
 
-const register = async (req, res) =>{
+const register = async (req, res, next) =>{
     try {
         const { username, email, password, phone} = req.body;
         let existingUser = await User.findOne({email});
@@ -34,7 +34,8 @@ const register = async (req, res) =>{
         const user = await User.create({username, email, password, phone});
         res.status(201).json({message:'Registration successful', token: await user.generateToken(), userId: user._id.toString() });
     } catch (error) {
-        res.status(400).json({msg: "Registration failed"});
+        // res.status(400).json({msg: "Registration failed"});
+        next(error)
     }
 }
 
