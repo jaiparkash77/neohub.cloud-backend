@@ -1,4 +1,4 @@
-const Users = require("../models/user-model");
+const User = require("../models/user-model");
 const Contact = require("../models/contact-model");
 
 //  *-----------------------------------
@@ -8,7 +8,7 @@ const Contact = require("../models/contact-model");
 const getAllUsers = async (req, res, next)=>{
     try {
         // const users = await Users.find().select({password: 0});
-        const users = await Users.find({}, {password: 0});
+        const users = await User.find({}, {password: 0});
         console.log(users);
 
         if(!users || users.length === 0){
@@ -16,6 +16,20 @@ const getAllUsers = async (req, res, next)=>{
         }
 
         return res.status(200).json(users);
+    } catch (error) {
+        next(error);
+    }
+}
+
+//  *-----------------------------------
+// Delete user by ID Logic
+//  *-----------------------------------
+
+const deleteUserById = async(req, res, next) =>{
+    try {
+        const id = req.params.id;
+        await User.deleteOne({_id: id});
+        res.status(200).json({message: "User Deleted Succssfully"});
     } catch (error) {
         next(error);
     }
@@ -39,4 +53,4 @@ const getAllContacts = async(req, res, next) =>{
     }
 }
 
-module.exports = {getAllUsers, getAllContacts};
+module.exports = {getAllUsers, getAllContacts, deleteUserById};
