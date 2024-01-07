@@ -22,7 +22,7 @@ const getAllUsers = async (req, res, next)=>{
 }
 
 //  *-----------------------------------
-// Get Single user by ID Logic
+// Get Single User by ID Logic
 //  *-----------------------------------
 
 const getUserById = async(req, res, next) =>{
