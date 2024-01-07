@@ -22,7 +22,7 @@ const getAllUsers = async (req, res, next)=>{
 }
 
 //  *-----------------------------------
-// Single user by ID Logic
+// Get Single user by ID Logic
 //  *-----------------------------------
 
 const getUserById = async(req, res, next) =>{
@@ -32,6 +32,22 @@ const getUserById = async(req, res, next) =>{
         if(!user){
             return res.status(404).json({message: "User not found!"})
         }
+        res.status(200).json(user);
+    } catch (error) {
+        next(error);
+    }
+}
+
+
+//  *-----------------------------------
+// Update Single user by ID Logic
+//  *-----------------------------------
+
+const updateUserById = async(req, res, next) =>{
+    try {
+        const id = req.params.id;
+        const updates = req.body;
+        let user = await User.updateOne({_id: id}, { $set: updates });
         res.status(200).json(user);
     } catch (error) {
         next(error);
@@ -70,4 +86,4 @@ const getAllContacts = async(req, res, next) =>{
     }
 }
 
-module.exports = {getAllUsers, getAllContacts, getUserById, deleteUserById};
+module.exports = {getAllUsers, getAllContacts, getUserById, deleteUserById, updateUserById};
