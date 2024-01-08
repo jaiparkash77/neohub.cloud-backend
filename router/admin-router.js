@@ -10,4 +10,6 @@ router.route("/user/:id").get(authMiddleware, adminMiddleware, adminController.g
 
 router.route("/contacts").get(authMiddleware, adminMiddleware, adminController.getAllContacts);
 
+router.route("/contact/:id").delete(authMiddleware, adminMiddleware, adminController.deleteContactById);
+
 module.exports = router;
