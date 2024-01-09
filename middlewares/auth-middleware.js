@@ -12,12 +12,11 @@ const authMiddleware = async(req, res, next) =>{
     
     // Assuming token is in the format "Bearer <jwt token>, Removing the 'Bearer' prefix"
     const jwtToken = token.replace("Bearer", "").trim();
-    console.log("token from auth middleware", jwtToken);
+    // console.log("token from auth middleware", jwtToken);
 
     try {
         const isVerified = jwt.verify(jwtToken, process.env.JWT_SECRET_KEY);
         const userData = await User.findOne({email: isVerified.email}).select({password: 0});
-        console.log(userData)
         
         req.user = userData;
         req.token = token;

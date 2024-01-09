@@ -9,7 +9,6 @@ const getAllUsers = async (req, res, next)=>{
     try {
         // const users = await Users.find().select({password: 0});
         const users = await User.find({}, {password: 0});
-        console.log(users);
 
         if(!users || users.length === 0){
             return res.status(404).json({message: "No users found!"});
@@ -75,7 +74,6 @@ const deleteUserById = async(req, res, next) =>{
 const getAllContacts = async(req, res, next) =>{
     try {
         const contacts = await Contact.find();
-        console.log(contacts);
 
         if(!contacts || contacts.length === 0){
             return res.status(404).json({message: "No Contact found!"});
